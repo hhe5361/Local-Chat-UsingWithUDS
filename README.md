@@ -18,6 +18,9 @@ A local chat application using Unix Domain Sockets (UDS) for inter-process commu
 
 Unlike TCP/IP sockets that use the network stack, UDS uses the file system as its address namespace. Communication occurs entirely within the operating system kernel, making it faster and more efficient for local inter-process communication.
 
+<img width="384" height="131" alt="image" src="https://github.com/user-attachments/assets/1aa467af-f483-4e87-a6a6-26566032f4d2" />
+
+
 ### How UDS Works
 
 1. **Socket File**: UDS uses a special file in the file system as the address (e.g., `/tmp/chat.sock`)
