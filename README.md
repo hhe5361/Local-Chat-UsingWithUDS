@@ -8,10 +8,6 @@ A local chat application using Unix Domain Sockets (UDS) for inter-process commu
 - [Key Features of UDS](#key-features-of-uds)
 - [UDS vs TCP/IP Sockets](#uds-vs-tcpip-sockets)
 - [Project Structure](#project-structure)
-- [Implementation Guide](#implementation-guide)
-  - [Server Implementation](#server-implementation)
-  - [Client Implementation](#client-implementation)
-- [How to Build and Run](#how-to-build-and-run)
 - [Usage Example](#usage-example)
 
 ---
