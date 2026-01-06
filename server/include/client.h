@@ -4,7 +4,7 @@
 #include <pthread.h>
 #include "chat_message.h"
 
-typedef struct {
+typedef struct Client {
     int socket_fd;
     pthread_t thread_id;
     char username[32];

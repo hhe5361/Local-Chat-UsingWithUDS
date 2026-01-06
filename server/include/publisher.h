@@ -2,10 +2,9 @@
 #define PUBLISHER_H
 
 #include <pthread.h>
+#include "chat_message.h"
 
-#define QUEUE_SIZE 128
-
-typedef struct MessageQueue MessageQueue;
+// Forward declaration - full definition in client.h
 typedef struct Client Client;
 
 //와 c 레전드

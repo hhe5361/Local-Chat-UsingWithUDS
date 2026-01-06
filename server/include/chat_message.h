@@ -11,14 +11,14 @@ typedef enum {
     MSG_LEAVE
 } MessageType;
 
-typedef struct {
+typedef struct ChatMessage {
     MessageType type;
     int from_fd;
     char username[32];
     char message[256];
 } ChatMessage;
 
-typedef struct {
+typedef struct MessageQueue {
     ChatMessage buffer[QUEUE_SIZE];
     int head;
     int tail;

@@ -1,3 +1,4 @@
+#define _GNU_SOURCE
 #include "client.h"
 #include "chat_message.h"
 #include <sys/socket.h>

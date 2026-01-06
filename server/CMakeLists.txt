@@ -26,7 +26,6 @@ target_link_libraries(chatcore PUBLIC
     Threads::Threads
 )
 
-# Executable: server
 add_executable(server
     src/main.c
 )
