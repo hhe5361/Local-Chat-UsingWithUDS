@@ -73,18 +73,6 @@ Unlike TCP/IP sockets that use the network stack, UDS uses the file system as it
 
 ---
 
-## Project Structure
-
-```
-Local-Chat-UsingWithUDS/
-├── README.md           # This documentation
-├── server.c            # Chat server implementation
-├── client.c            # Chat client implementation
-├── Makefile            # Build automation
-└── chat.sock           # Socket file (created at runtime)
-```
-
----
 
 ### Running the Application
 
@@ -106,26 +94,7 @@ Local-Chat-UsingWithUDS/
 
 ### Terminal 1 (Server)
 ```
-$ ./server
-Chat Server started. Waiting for connections...
-Socket path: /tmp/chat.sock
-Client connected!
-Client: Hello, Server!
-Server: Hi, Client! How are you?
-Client: I'm good, thanks!
-Server: Great to hear!
-```
 
-### Terminal 2 (Client)
-```
-$ ./client
-Connected to Chat Server!
-Type your messages (Ctrl+C to quit):
-You: Hello, Server!
-Server: Hi, Client! How are you?
-You: I'm good, thanks!
-Server: Great to hear!
-```
 
 ---
 
@@ -140,3 +109,5 @@ Server: Great to hear!
 ## License
 
 This project is open source and available under the MIT License.
+
+https://pubs.opengroup.org/onlinepubs/009696699/basedefs/sys/un.h.html

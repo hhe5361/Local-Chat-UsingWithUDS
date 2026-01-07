@@ -1,11 +1,13 @@
+#include <sys/un.h> //Unix Domain Socket
 #include <sys/socket.h>
-#include <sys/un.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <string.h>
 #include <errno.h>
 #include "client.h"
 #include "publisher.h"
+
+//db
 #define SOCKET_PATH "/tmp/local_chat_socket"
 #define QUEUE_SIZE 128
 
@@ -55,7 +57,7 @@ int main(){
                 continue;
             }
 
-            //client 등록
+            //client 등록 -> 구조적으로 봤을 때 좀 깔끔한가..? 으으으으음......
             Client* new_client = register_client(client_fd, publisher.message_queue);
             if (!new_client) {
                 close(client_fd);
