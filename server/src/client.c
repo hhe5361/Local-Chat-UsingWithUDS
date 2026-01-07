@@ -89,21 +89,19 @@ void* client_worker(void* arg){
         data = recv(client->socket_fd, buffer, sizeof(buffer) - 1, 0);
         if(data <= 0){
             if(data < 0) perror("recv error");
-            else printf("Client disconnected --> FD %d\n", client->socket_fd); //여기서 사실 그거 필요한데 publisher 한테 알리는 거 ㅇㅇ... 음 어케 알릴까... 음..
+            else printf("Client disconnected --> FD %d\n", client->socket_fd);
 
-            send_message_to_queue(client, "", MSG_CHAT); //message type 을 통하여 알리기.
+            send_message_to_queue(client, "", MSG_LEAVE);
             close(client->socket_fd);
             break;
         }
 
-        buffer[data] = '\0'; //null terminate
+        buffer[data] = '\0'; 
         printf("Received from client FD %d: %s\n", client->socket_fd, buffer);
 
         send_message_to_queue(client, buffer, MSG_CHAT);
     }
 
-    //종료할 때 일단 간단하게 "exit" 알리는 역할로 할까.
-    send_message_to_queue(client, "", MSG_LEAVE);
     return NULL;
 
 }

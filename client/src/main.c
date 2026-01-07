@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <sys/socket.h>
 #include <sys/un.h>
+#include <string.h>
+#include <unistd.h>
 
 #define SOCKET_PATH "/tmp/local_chat_socket"
 
@@ -30,20 +32,22 @@ int main () {
     printf("connected to server at %s\n", SOCKET_PATH);
     
     const char* msg = "Hello from client!";
-    if (send(fd, msg, sizeof(msg), 0) < 0) {
+    if (send(fd, msg, strlen(msg), 0) < 0) {
         perror("send error");
         close(fd);
         return -1;
     }
 
-    int n = recv(fd, msg, sizeof(msg), 0);
+    char buffer[256];
+    int n = recv(fd, buffer, sizeof(buffer) - 1, 0);
     if (n < 0) {
         perror("recv error");
         close(fd);
         return -1;
     }
-    
-    printf("received from server: %s\n", msg);
+    buffer[n] = '\0';
+
+    printf("received from server: %s\n", buffer);
 
     return 0;
 }

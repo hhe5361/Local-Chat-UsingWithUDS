@@ -73,10 +73,27 @@ void* publisher_worker(void* arg) {
         if (dequeue_message(queue, &message) == 0) {
             //publish all clients
             ClientList* clist = publisher->client_list;
+            Client* disconnected_client = NULL;
+
             for (int i = 0; i < clist->client_count; i++) {
+
+                //close된 client publish 제외. 
+                if ((message.type == MSG_LEAVE || message.type == MSG_JOIN) &&
+                    clist->clients[i]->socket_fd == message.from_fd) {
+                    if (message.type == MSG_LEAVE) {
+                        disconnected_client = clist->clients[i];
+                    }
+                    continue;
+                }
                 publish_to_client(clist->clients[i], &message);
             }
             printf("publish message from %s: %s\n", message.username, message.message);
+
+            //remove disconnected client from list
+            if (disconnected_client) {
+                remove_client_from_publisher(publisher, disconnected_client);
+                free(disconnected_client);
+            }
         }
     }
 }
@@ -93,8 +110,8 @@ int publish_to_client(Client* client, const ChatMessage* message) {
         len = snprintf(buffer, sizeof(buffer), "[%s] %s\n", message->username, message->message);
     }
 
-    if (send(client->socket_fd, buffer, len, 0) < 0) {
-        perror("send error");
+    if (send(client->socket_fd, buffer, len, MSG_NOSIGNAL) < 0) {
+        //client likely disconnected, ignore error
         return -1;
     }
 

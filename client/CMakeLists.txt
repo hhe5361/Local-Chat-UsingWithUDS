@@ -9,6 +9,10 @@ add_compile_options(-Wall -Wextra -Wpedantic)
 
 include_directories(include)
 
+find_package(Threads REQUIRED)
 
-# add_executable(client
-# )
+# reference link 
+#보통 소스 아래에 주르르 나열
+add_executable(client
+    src/main.c
+)
