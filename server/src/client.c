@@ -82,6 +82,8 @@ void* client_worker(void* arg){
     Client* client = (Client*)arg;
     char buffer[256];
     ssize_t data;
+    //join message 
+    send_message_to_queue(client, "", MSG_JOIN);
 
     while(1){
         data = recv(client->socket_fd, buffer, sizeof(buffer) - 1, 0);
@@ -89,7 +91,7 @@ void* client_worker(void* arg){
             if(data < 0) perror("recv error");
             else printf("Client disconnected --> FD %d\n", client->socket_fd); //여기서 사실 그거 필요한데 publisher 한테 알리는 거 ㅇㅇ... 음 어케 알릴까... 음..
 
-            send_message_to_queue(client, "", MSG_LEAVE); //message type 을 통하여 알리기.
+            send_message_to_queue(client, "", MSG_CHAT); //message type 을 통하여 알리기.
             close(client->socket_fd);
             break;
         }
